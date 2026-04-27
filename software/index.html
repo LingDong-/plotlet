@@ -1,0 +1,764 @@
+<head>
+  <meta charset="UTF-8">
+  <script src="svg2pl.js"></script>
+  <script src="hlr.js"></script>
+  <style>
+  a:link {
+    color: royalblue;
+  }
+  a:visited {
+    color: royalblue;
+  }
+  a:hover {
+    color: royalblue;
+  }
+  a:active {
+    color: royalblue;
+  }
+  </style>
+</head>
+<body></body>
+
+<script>
+let HF_OFFS = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,30,54,0,108,178,184,206,228,246,258,276,282,294,300,336,346,376,408,422,458,506,518,578,626,650,680,688,700,708,0,750,790,872,920,990,1046,1102,1160,1236,1286,1336,1414,1472,1562,1626,1684,1746,1810,1886,1942,1992,2058,2122,2172,2244,2320,2400,2424,2430,2454,2470,2476,2490,2534,2580,2608,2656,2690,2738,2794,2852,2884,2924,2990,3026,3092,3138,3184,3232,3286,3316,3348,3380,3418,3452,3502,3542,3588,3634,3714,3720,3800,0,3848];
+let HF_DATA = [8,10,87,70,87,84,32,82,87,89,86,90,87,91,88,90,87,89,5,16,86,70,86,77,32,82,94,70,94,77,11,21,93,66,86,98,32,82,99,66,92,98,32,82,86,79,100,79,32,82,85,85,99,85,26,20,90,66,90,95,32,82,94,66,94,95,32,82,99,73,97,71,94,70,90,70,87,71,85,73,85,75,86,77,87,78,89,79,95,81,97,82,98,83,99,85,99,88,97,90,94,91,90,91,87,90,85,88,34,26,105,79,105,78,104,77,103,77,102,78,101,80,99,85,97,88,95,90,93,91,89,91,87,90,86,89,85,87,85,85,86,83,87,82,94,78,95,77,96,75,96,73,95,71,93,70,91,71,90,73,90,75,91,78,93,81,98,88,100,90,102,91,104,91,105,90,105,89,2,8,86,70,86,77,10,14,93,66,91,68,89,71,87,75,86,80,86,84,87,89,89,93,91,96,93,98,10,14,85,66,87,68,89,71,91,75,92,80,92,84,91,89,89,93,87,96,85,98,8,16,90,76,90,88,32,82,85,79,95,85,32,82,95,79,85,85,5,26,95,73,95,91,32,82,86,82,104,82,8,10,88,90,87,91,86,90,87,89,88,90,88,92,87,94,86,95,2,26,86,82,104,82,5,10,87,89,86,90,87,91,88,90,87,89,2,22,102,66,84,98,17,20,91,70,88,71,86,74,85,79,85,82,86,87,88,90,91,91,93,91,96,90,98,87,99,82,99,79,98,74,96,71,93,70,91,70,4,20,88,74,90,73,93,70,93,91,14,20,86,75,86,74,87,72,88,71,90,70,94,70,96,71,97,72,98,74,98,76,97,78,95,81,85,91,99,91,15,20,87,70,98,70,92,78,95,78,97,79,98,80,99,83,99,85,98,88,96,90,93,91,90,91,87,90,86,89,85,87,6,20,95,70,85,84,100,84,32,82,95,70,95,91,17,20,97,70,87,70,86,79,87,78,90,77,93,77,96,78,98,80,99,83,99,85,98,88,96,90,93,91,90,91,87,90,86,89,85,87,23,20,98,73,97,71,94,70,92,70,89,71,87,74,86,79,86,84,87,88,89,90,92,91,93,91,96,90,98,88,99,85,99,84,98,81,96,79,93,78,92,78,89,79,87,81,86,84,5,20,99,70,89,91,32,82,85,70,99,70,29,20,90,70,87,71,86,73,86,75,87,77,89,78,93,79,96,80,98,82,99,84,99,87,98,89,97,90,94,91,90,91,87,90,86,89,85,87,85,84,86,82,88,80,91,79,95,78,97,77,98,75,98,73,97,71,94,70,90,70,23,20,98,77,97,80,95,82,92,83,91,83,88,82,86,80,85,77,85,76,86,73,88,71,91,70,92,70,95,71,97,73,98,77,98,82,97,87,95,90,92,91,90,91,87,90,86,88,11,10,87,77,86,78,87,79,88,78,87,77,32,82,87,89,86,90,87,91,88,90,87,89,14,10,87,77,86,78,87,79,88,78,87,77,32,82,88,90,87,91,86,90,87,89,88,90,88,92,87,94,86,95,3,24,102,73,86,82,102,91,5,26,86,79,104,79,32,82,86,85,104,85,3,24,86,73,102,82,86,91,20,18,85,75,85,74,86,72,87,71,89,70,93,70,95,71,96,72,97,74,97,76,96,78,95,79,91,81,91,84,32,82,91,89,90,90,91,91,92,90,91,89,19,20,82,91,84,90,87,87,90,83,94,76,97,70,97,91,96,88,94,85,92,83,89,81,87,81,86,82,86,84,87,86,89,88,92,90,95,91,100,91,40,23,95,72,96,73,96,76,95,80,94,83,93,85,91,88,89,90,87,91,86,91,85,90,85,87,86,82,87,79,88,77,90,74,92,72,94,71,97,70,100,70,102,71,103,73,103,75,102,77,101,78,99,79,96,80,32,82,95,80,96,80,99,81,100,82,101,84,101,87,100,89,99,90,97,91,94,91,92,90,91,88,23,20,94,76,94,77,95,78,97,78,99,77,100,75,100,73,99,71,97,70,94,70,91,71,89,73,87,76,86,78,85,82,85,86,86,89,87,90,89,91,91,91,94,90,96,88,97,86,34,23,95,70,93,71,92,73,91,77,90,83,89,86,88,88,86,90,84,91,82,91,81,90,81,88,82,87,84,87,86,88,88,90,91,91,94,91,97,90,99,88,101,84,102,79,102,75,101,72,100,71,98,70,95,70,93,72,93,74,94,77,96,80,98,82,101,84,103,85,27,20,96,74,96,75,97,76,99,76,100,75,100,73,99,71,96,70,92,70,89,71,88,73,88,76,89,78,90,79,93,80,90,80,87,81,86,82,85,84,85,87,86,89,87,90,90,91,93,91,96,90,98,88,99,86,27,20,92,76,90,76,88,75,87,73,88,71,91,70,94,70,98,71,101,71,103,70,32,82,98,71,96,78,94,84,92,88,90,90,88,91,86,91,84,90,83,88,83,86,84,85,86,85,88,86,32,82,91,80,100,80,28,23,82,91,84,90,88,86,91,81,92,78,93,74,93,71,92,70,91,70,90,71,89,73,89,76,90,78,92,79,96,79,99,78,100,77,101,75,101,81,100,86,99,88,97,90,94,91,90,91,87,90,85,88,84,86,84,84,37,24,89,77,87,76,86,74,86,73,87,71,89,70,90,70,92,71,93,73,93,75,92,79,90,85,88,89,86,91,84,91,83,90,83,88,32,82,89,82,98,79,100,78,103,76,105,74,106,72,106,71,105,70,104,70,102,72,100,76,98,82,97,87,97,90,98,91,99,91,101,90,102,89,104,86,24,17,96,86,94,84,92,81,91,79,90,76,90,73,91,71,92,70,94,70,95,71,96,73,96,76,95,81,93,86,92,88,90,90,88,91,86,91,84,90,83,88,83,86,84,85,86,85,88,86,24,15,92,94,90,91,88,86,87,80,87,74,88,71,90,70,92,70,93,71,94,74,94,77,93,82,90,91,88,97,87,100,86,102,84,103,83,102,83,100,84,97,86,94,88,92,91,90,95,88,38,24,89,77,87,76,86,74,86,73,87,71,89,70,90,70,92,71,93,73,93,75,92,79,90,85,88,89,86,91,84,91,83,90,83,88,32,82,106,73,106,71,105,70,104,70,102,71,100,73,98,76,96,78,94,79,92,79,32,82,94,79,95,81,95,88,96,90,97,91,98,91,100,90,101,89,103,86,28,19,86,82,88,82,92,81,95,79,97,77,98,75,98,72,97,70,95,70,94,71,93,73,92,78,91,83,90,86,89,88,87,90,85,91,83,91,82,90,82,88,83,87,85,87,87,88,90,90,93,91,95,91,98,90,100,88,44,33,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,75,90,80,89,84,87,91,32,82,89,84,92,76,94,72,95,71,97,70,98,70,100,71,101,73,101,75,100,80,99,84,97,91,32,82,99,84,102,76,104,72,105,71,107,70,108,70,110,71,111,73,111,75,110,80,108,87,108,90,109,91,110,91,112,90,113,89,115,86,31,24,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,75,90,80,89,84,87,91,32,82,89,84,92,76,94,72,95,71,97,70,99,70,101,71,102,73,102,75,101,80,99,87,99,90,100,91,101,91,103,90,104,89,106,86,28,21,94,70,91,71,89,73,87,76,86,78,85,82,85,86,86,89,87,90,89,91,91,91,94,90,96,88,98,85,99,83,100,79,100,75,99,72,98,71,96,70,94,70,92,72,92,75,93,78,95,81,97,83,100,85,102,86,30,25,95,72,96,73,96,76,95,80,94,83,93,85,91,88,89,90,87,91,86,91,85,90,85,87,86,82,87,79,88,77,90,74,92,72,94,71,97,70,102,70,104,71,105,72,106,74,106,77,105,79,104,80,102,81,99,81,97,80,96,79,31,22,95,76,94,78,93,79,91,80,89,80,88,78,88,76,89,73,91,71,94,70,97,70,99,71,100,73,100,77,99,80,97,83,93,87,90,89,88,90,85,91,83,91,82,90,82,88,83,87,85,87,87,88,90,90,93,91,96,91,99,90,101,88,37,25,95,72,96,73,96,76,95,80,94,83,93,85,91,88,89,90,87,91,86,91,85,90,85,87,86,82,87,79,88,77,90,74,92,72,94,71,97,70,101,70,103,71,104,72,105,74,105,77,104,79,103,80,101,81,98,81,95,80,96,81,97,83,97,88,98,90,100,91,102,90,103,89,105,86,27,20,82,91,84,90,86,88,89,84,91,81,93,77,94,74,94,71,93,70,92,70,91,71,90,73,90,75,91,77,93,79,96,81,98,83,99,85,99,87,98,89,97,90,94,91,90,91,87,90,85,88,84,86,84,84,24,19,92,76,90,76,88,75,87,73,88,71,91,70,94,70,98,71,101,71,103,70,32,82,98,71,96,78,94,84,92,88,90,90,88,91,86,91,84,90,83,88,83,86,84,85,86,85,88,86,32,24,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,75,90,79,89,82,88,86,88,88,89,90,91,91,93,91,95,90,96,89,98,85,101,77,103,70,32,82,101,77,100,81,99,87,99,90,100,91,101,91,103,90,104,89,106,86,31,23,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,75,90,79,89,82,88,86,88,89,89,91,91,91,93,90,96,87,98,84,100,80,101,77,102,73,102,71,101,70,100,70,99,71,98,73,98,75,99,78,101,80,103,81,24,28,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,76,90,91,32,82,100,70,90,91,32,82,100,70,98,91,32,82,112,70,110,71,107,74,104,78,101,84,98,91,35,24,90,76,88,76,87,75,87,73,88,71,90,70,92,70,94,71,95,73,95,76,93,85,93,88,94,90,96,91,98,91,100,90,101,88,101,86,100,85,98,85,32,82,105,73,105,71,104,70,102,70,100,71,98,73,96,76,92,85,90,88,88,90,86,91,84,91,83,90,83,88,37,23,87,77,85,76,84,74,84,73,85,71,87,70,88,70,90,71,91,73,91,75,90,79,89,82,88,86,88,88,89,90,90,91,92,91,94,90,96,88,98,85,99,83,101,77,32,82,103,70,101,77,98,87,96,93,94,98,92,102,90,103,89,102,89,100,90,97,92,94,95,91,98,89,103,86,39,21,95,76,94,78,93,79,91,80,89,80,88,78,88,76,89,73,91,71,94,70,97,70,99,71,100,73,100,77,99,80,97,84,94,87,90,90,88,91,85,91,84,90,84,88,85,87,88,87,90,88,91,89,92,91,92,94,91,97,90,99,88,102,86,103,85,102,85,100,86,97,88,94,91,91,94,89,100,86,11,14,86,66,86,98,32,82,87,66,87,98,32,82,86,66,93,66,32,82,86,98,93,98,2,14,82,70,96,94,11,14,91,66,91,98,32,82,92,66,92,98,32,82,85,66,92,66,32,82,85,98,92,98,7,22,85,84,93,79,101,84,32,82,85,84,93,80,101,84,2,16,82,93,98,93,6,12,86,70,91,76,32,82,86,70,85,71,91,76,21,16,91,85,90,83,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,87,91,89,90,90,88,92,82,91,87,91,90,92,91,93,91,95,90,96,89,98,86,22,14,82,86,84,83,87,78,88,76,89,73,89,71,88,70,86,71,85,73,84,77,83,84,83,90,84,91,85,91,87,90,89,88,90,85,90,82,91,86,92,87,94,87,96,86,13,11,89,84,89,83,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,88,91,91,89,93,86,23,16,91,85,90,83,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,87,91,89,90,90,88,96,70,32,82,92,82,91,87,91,90,92,91,93,91,95,90,96,89,98,86,16,10,83,89,85,88,86,87,87,85,87,83,86,82,85,82,83,83,82,85,82,88,83,90,85,91,87,91,89,90,90,89,92,86,23,8,82,86,86,81,88,78,89,76,90,73,90,71,89,70,87,71,86,73,84,81,81,90,78,97,77,100,77,102,78,103,80,102,81,99,82,90,83,91,85,91,87,90,88,89,90,86,27,15,91,85,90,83,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,87,91,89,90,90,89,32,82,92,82,90,89,86,100,85,102,83,103,82,102,82,100,83,97,86,94,89,92,91,91,94,89,97,86,28,15,82,86,84,83,87,78,88,76,89,73,89,71,88,70,86,71,85,73,84,77,83,83,82,91,32,82,82,91,83,88,84,86,86,83,88,82,90,82,91,83,91,85,90,88,90,90,91,91,92,91,94,90,95,89,97,86,15,7,85,77,85,78,86,78,86,77,85,77,32,82,82,86,84,82,82,88,82,90,83,91,84,91,86,90,87,89,89,86,19,7,85,77,85,78,86,78,86,77,85,77,32,82,82,86,84,82,78,100,77,102,75,103,74,102,74,100,75,97,78,94,81,92,83,91,86,89,89,86,32,14,82,86,84,83,87,78,88,76,89,73,89,71,88,70,86,71,85,73,84,77,83,83,82,91,32,82,82,91,83,88,84,86,86,83,88,82,90,82,91,83,91,85,89,86,86,86,32,82,86,86,88,87,89,90,90,91,91,91,93,90,94,89,96,86,17,8,82,86,84,83,87,78,88,76,89,73,89,71,88,70,86,71,85,73,84,77,83,84,83,90,84,91,85,91,87,90,88,89,90,86,32,25,82,86,84,83,86,82,87,83,87,84,86,88,85,91,32,82,86,88,87,86,89,83,91,82,93,82,94,83,94,84,93,88,92,91,32,82,93,88,94,86,96,83,98,82,100,82,101,83,101,85,100,88,100,90,101,91,102,91,104,90,105,89,107,86,22,18,82,86,84,83,86,82,87,83,87,84,86,88,85,91,32,82,86,88,87,86,89,83,91,82,93,82,94,83,94,85,93,88,93,90,94,91,95,91,97,90,98,89,100,86,22,14,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,87,91,89,90,90,89,91,87,91,85,90,83,88,82,87,83,87,85,88,87,90,88,93,88,95,87,96,86,23,15,82,86,84,83,85,81,84,85,78,103,32,82,84,85,85,83,87,82,89,82,91,83,92,85,92,87,91,89,90,90,88,91,32,82,84,90,86,91,89,91,92,90,94,89,97,86,26,15,91,85,90,83,88,82,86,82,84,83,83,84,82,86,82,88,83,90,85,91,87,91,89,90,32,82,92,82,91,85,89,90,86,97,85,100,85,102,86,103,88,102,89,99,89,92,91,91,94,89,97,86,14,13,82,86,84,83,85,81,85,83,88,83,89,84,89,86,88,89,88,90,89,91,90,91,92,90,93,89,95,86,15,11,82,86,84,83,85,81,85,83,87,86,88,88,88,90,86,91,32,82,82,90,84,91,88,91,90,90,91,89,93,86,15,9,82,86,84,83,86,79,32,82,89,70,83,88,83,90,84,91,86,91,88,90,89,89,91,86,32,82,83,78,90,78,18,15,82,86,84,82,82,88,82,90,83,91,85,91,87,90,89,88,91,85,32,82,92,82,90,88,90,90,91,91,92,91,94,90,95,89,97,86,16,15,82,86,84,82,83,87,83,90,84,91,85,91,88,90,90,88,91,85,91,82,32,82,91,82,92,86,93,87,95,87,97,86,24,21,85,82,83,84,82,87,82,89,83,91,85,91,87,90,89,88,32,82,91,82,89,88,89,90,90,91,92,91,94,90,96,88,97,85,97,82,32,82,97,82,98,86,99,87,101,87,103,86,19,16,82,86,84,83,86,82,88,82,89,83,89,90,90,91,93,91,96,89,98,86,32,82,95,83,94,82,92,82,91,83,87,90,86,91,84,91,83,90,22,15,82,86,84,82,82,88,82,90,83,91,85,91,87,90,89,88,91,85,32,82,92,82,86,100,85,102,83,103,82,102,82,100,83,97,86,94,89,92,91,91,94,89,97,86,22,14,82,86,84,83,86,82,88,82,90,84,90,86,89,88,87,90,84,91,86,92,87,94,87,97,86,100,85,102,83,103,82,102,82,100,83,97,86,94,89,92,93,89,96,86,39,14,91,66,89,67,88,68,87,70,87,72,88,74,89,75,90,77,90,79,88,81,32,82,89,67,88,69,88,71,89,73,90,74,91,76,91,78,90,80,86,82,90,84,91,86,91,88,90,90,89,91,88,93,88,95,89,97,32,82,88,83,90,85,90,87,89,89,88,90,87,92,87,94,88,96,89,97,91,98,2,8,86,66,86,98,39,14,87,66,89,67,90,68,91,70,91,72,90,74,89,75,88,77,88,79,90,81,32,82,89,67,90,69,90,71,89,73,88,74,87,76,87,78,88,80,92,82,88,84,87,86,87,88,88,90,89,91,90,93,90,95,89,97,32,82,90,83,88,85,88,87,89,89,90,90,91,92,91,94,90,96,89,97,87,98,23,24,85,85,85,83,86,80,88,79,90,79,92,80,96,83,98,84,100,84,102,83,103,81,32,82,85,83,86,81,88,80,90,80,92,81,96,84,98,85,100,85,102,84,103,81,103,79];
+</script>
+
+<script>
+
+let WORKW = 1500;
+let WORKH = 800;
+
+document.body.style=`overflow:hidden;font-family:sans-serif; background:white;
+background-image: url('data:image/svg+xml;charset=utf-8,${escape(`<svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 10 10"><line x1="0" y1="10" x2="10" y2="0" stroke="black" stroke-width="1" /></svg>`)}');
+background-size: 4px 4px;`
+
+let div_title = document.createElement("div");
+div_title.style="position:absolute; left:0px; top:0px; width:100%; height:30px;background:white;border:1px solid black";
+document.body.appendChild(div_title);
+
+
+let div_view = document.createElement("div");
+div_view.style="position:absolute; left:10px; top: calc(50% + 20px); width: calc(100% - 20px); height: calc(50% - 30px);  border: 1px solid black;background:white;overflow:scroll";
+document.body.appendChild(div_view);
+
+
+let div_data = document.createElement("div");
+div_data.style="position:absolute; left:10px; top:40px; width: calc(50% - 15px); height: calc(50% - 30px);  border: 1px solid black;background: white";
+document.body.appendChild(div_data);
+
+div_title.innerHTML = `
+<div style="text-align:center;width:100%;margin-top:6px"><b>PLOTLET WEB</b></div>
+<div style="position:absolute;right:10px;top:6px"><input type="checkbox" onchange="document.documentElement.style.filter = this.checked?'invert(90%) sepia(20%) hue-rotate(0deg)':''" ></input>dark mode&nbsp;
+<button onclick="alert('A web tool by Lingdong Huang for use with his compact pen-plotter design, 2026')">about</button></div>
+`
+
+div_data.innerHTML = `
+<div style="position:relative;height:100%">
+
+<div style="position:absolute;left:2px;top:2px;background:white;width:calc(100% - 4px);height:calc(100% - 4px);z-index:1000">
+<b>INPUT</b>
+
+<select id="intyp">
+<option>polylines</option>
+<option>.svg</option>
+<option>.hlr.svg</option>
+<option>text</option>
+</select>
+
+<button id="inup">upload file</button>, <button id="ineg">example</button>, or paste below:<br>
+
+<textarea id="inta" style="width:calc(100% - 0px);height:calc(100% - 150px);min-height:50px"></textarea>
+<br>
+<input id="inrot" type="checkbox"></input>rotate 90deg
+<input id="infit" type="checkbox"></input>transform to fit
+<input id="inapx" type="checkbox"></input>approx
+<input id="intsp" type="checkbox"></input>tsp optimize
+
+<button id="inproc" style="width:100%">process</button>
+
+<div id="indesc" style="font-size:11px;height:60px;overflow:scroll"></div>
+
+</div>
+`
+
+let div_transmit = document.createElement("div");
+div_transmit.style="position:absolute; left:calc(50% + 5px); top:40px; width: calc(50% - 15px); height: calc(50% - 30px); border: 1px solid black;background: white";
+document.body.appendChild(div_transmit);
+
+div_transmit.innerHTML = `
+<div style="position:relative;height:100%">
+
+<div style="position:absolute;left:2px;top:2px;background:white;width:calc(100% - 2px);z-index:1000">
+<b>TRANSMIT</b>
+
+<select id="cntyp">
+<option>serial</option>
+<option>bluetooth</option>
+</select>
+
+</div>
+
+<div id="div-transmit-content" style="position:absolute;left:0px;top:24px;width:100%;bottom:0;overflow:hidden;">
+</div>
+
+</div>
+`
+
+document.getElementById("intyp").onchange = function(){
+  let typ = document.getElementById("intyp").value;
+  let desc = "";
+  let link = "";
+  if (typ == "polylines"){
+    desc = "a 3D array in JSON format, in the form of [[[x0,y0],[x1,y1],...],...].";
+    link = "https://github.com/LingDong-/interesting-polygon-archive/tree/master/json";
+  }else if (typ == ".svg"){
+    desc = "scalable vector graphics format. All shapes are treated as outlines, styles and some advanced SVG features are ignored.";
+    link = "https://developer.mozilla.org/en-US/docs/Web/SVG";
+  }else if (typ == ".hlr.svg"){
+    desc = `SVG subset for hidden-line-removal (clipping) algorithm.
+Each line denotes either a polyline to be clipped, or a polygon to clip
+(occlude/obscure) all the polylines that came before it.
+Both shapes must start the line with the character 'M',
+followed by pairs of x,y coordinates, separated by spaces.
+Clipper polygons are differentiated from clippee polylines
+by endding the line with the character 'z'.
+A special line, width="%d" height="%d" can be used to denote
+the width and height of the document.
+All other lines are ignored. Lines are delimited by "\\n" (0xA).
+`
+    link = "https://github.com/LingDong-/galiano-drawing/blob/main/hlr.cpp";
+  }else if (typ == "text"){
+    desc = `some plain text content to be rendered in a default Hershey font. Printable ASCII characters only. For more advanced typesetting features, use polylines or SVG options instead.`
+    link = "https://paulbourke.net/dataformats/hershey/";
+  }
+  document.getElementById("indesc").innerHTML = `<b>${typ}</b>: `+desc+` <a href="${link}">[more info]</a> <a href="javascript:void(0)" onclick="document.getElementById('ineg').onclick()">[example]</a><br><br>Work area is ${WORKW}x${WORKH}.`;
+}
+
+document.getElementById("intyp").onchange();
+
+document.getElementById("ineg").onclick = function(){
+  let typ = document.getElementById("intyp").value;
+  let dat;
+  if (typ == 'polylines'){
+    dat = "WwpbWzI0NywyNF0sWzI4OSwyOV0sWzMzNCw1M10sWzM0Nyw3OF0sWzM1MiwxMDVdLFszNTIsMTMxXSxbMzY1LDE2MF0sWzM4MCwxNzddLFszOTksMTgyXSxbNDEwLDE2OV0sWzQxNCwxMjddLFs0MTQsODJdLFs0MjEsNTJdLFs0NDAsMjZdLFs0NjAsMTZdLFs0ODIsMjVdLFs1MDIsNDldLFs1MTEsODZdLFs0OTksMTQxXSxbNDkzLDE2N10sWzQ2OCwyMDldLFs0NDcsMjQ2XSxbMzYxLDM1M10sWzM0OCwzODVdLFszNDgsNDE0XSxbMzU1LDQzNl0sWzM3NSw0NDldLFszOTYsNDQ5XSxbNDQxLDQxOV0sWzQ2MCw0MDJdLFs0ODAsMzg3XSxbNTExLDM0MV0sWzUzNywyOTddLFs1NDYsMjQyXSxbNTUzLDE2OV0sWzU1NywxNDNdLFs1NjksMTEyXSxbNTg5LDg2XSxbNjA5LDczXSxbNjM2LDc2XSxbNjU1LDkxXSxbNjY3LDExMV0sWzY3MCwxMzldLFs2NjUsMTcyXSxbNjUwLDIwNV0sWzYyOSwyNDFdLFs2MTcsMjYxXSxbNjEyLDI4MV0sWzYyNiwyOTBdLFs2NTMsMjg0XSxbNjg2LDI3Ml0sWzcwNiwyNjFdLFs3MjAsMjU5XSxbNzQ1LDI3NF0sWzc1MSwyODZdLFs3NDUsMzEyXSxbNzI2LDM0NV0sWzY5MywzNzhdLFs2NjQsMzg5XSxbNjA5LDQwNl0sWzU1OSw0MTldLFs0NzcsNDM4XSxbNDY4LDQ1NF0sWzQ2OCw0NzVdLFs0NzUsNTA5XSxbNDgzLDUzMF0sWzQ5OSw1NDRdLFs1MjMsNTQzXSxbNTc4LDUzMl0sWzYyMCw0OTNdLFs2NjEsNDUyXSxbNjg2LDQyOF0sWzcxMyw0MDhdLFs3MzksNDA1XSxbNzU1LDQyMl0sWzc2MSw0NTBdLFs3NTQsNDc2XSxbNzM4LDQ5NF0sWzY2MSw1MTldLFs2NTAsNTI2XSxbNjMzLDU0OV0sWzYzNyw1NjFdLFs2NjAsNTY0XSxbNjk5LDU3Ml0sWzczMyw1ODddLFs3NDgsNjAzXSxbNzUzLDYyOV0sWzc0NSw2NTNdLFs3MzIsNjY3XSxbNzA4LDY3M10sWzY4MSw2NjldLFs2NDksNjUwXSxbNjEyLDYyNV0sWzU3OCw2MDZdLFs1NDQsNTg5XSxbNTA5LDU3OF0sWzQ3Nyw1NzhdLFs0NTksNTg4XSxbNDU2LDYxMV0sWzQ2MSw2MzldLFs0NTcsNjczXSxbNDQ3LDcwMF0sWzQxNCw3MzJdLFszNjUsNzY2XSxbMzI3LDc3N10sWzI2Nyw3NzVdLFsyMDksNzcwXSxbMTcwLDc1N10sWzE1Niw3NDFdLFsxNTksNzE1XSxbMTcxLDY5M10sWzE5MSw2ODNdLFsyMjEsNjgzXSxbMjc2LDY4OF0sWzMyNiw2ODldLFszNzUsNjY0XSxbNDExLDY0Ml0sWzQxMiw2MTVdLFs0MTUsNTgwXSxbNDA3LDU3MF0sWzM5MSw1NjVdLFszNDQsNTgzXSxbMzA0LDU5OV0sWzI2OSw2MTVdLFsyNDEsNjIzXSxbMTcxLDYyNl0sWzEwMiw2MjJdLFs2OSw2MDRdLFs1Nyw1ODRdLFs1Nyw1NDZdLFs4MCw1MjZdLFsxMTcsNTAzXSxbMTQ1LDUwNF0sWzE4NSw1MjRdLFsyMjksNTUxXSxbMjc4LDU3NV0sWzMwNCw1NzRdLFszMjUsNTQ0XSxbMzI1LDUxN10sWzMwOSw0OTVdLFsyNzcsNDY4XSxbMjM5LDQzOF0sWzIwMSwzODddLFsxNDksMjk0XSxbMTE0LDIxNF0sWzEyMCwxNDhdLFsxMzIsMTM1XSxbMTU5LDEzNl0sWzIwMCwxNzVdLFsyMzUsMjM2XSxbMjM4LDI2MF0sWzIzOCwzMjRdLFsyMzcsMzY4XSxbMjQ4LDM5OF0sWzI4NCw0MTBdLFszMTgsMzg2XSxbMzI3LDM0Ml0sWzMzNywyNjZdLFszMjksMjM4XSxbMzAyLDIwMl0sWzI3OCwxNzJdLFsyNTAsMTQwXSxbMjM2LDEyMF0sWzIyNiw5NV0sWzIyNSw3MV0sWzIzMSw0OV0sWzI0NywyNF1dLApbWzI2Myw2M10sWzI1NSwxMDhdLFsyOTYsMTE4XSxbMzEwLDc1XSxbMjYzLDYzXV0sCltbMTYyLDIxM10sWzE0OSwyNTVdLFsxOTUsMjcyXSxbMjEzLDIyOF0sWzE2MiwyMTNdXSwKW1s0NjAsNTddLFs0MzAsOThdLFs0NjEsMTIyXSxbNDk1LDkwXSxbNDYwLDU3XV0sCltbMzgwLDIyOV0sWzM1NCwyNTZdLFszODUsMjkyXSxbNDE0LDI1N10sWzM4MCwyMjldXSwKW1s2MjUsMTMyXSxbNTc3LDE0NF0sWzU5MCwxODhdLFs2MzMsMTc5XSxbNjI1LDEzMl1dLApbWzMyNSw0MTJdLFsyODQsNDMzXSxbMzEwLDQ3Nl0sWzM1MCw0NTZdLFszMjUsNDEyXV0sCltbNjAyLDMxN10sWzU1OCwzMjldLFs1NjUsMzY5XSxbNjA4LDM2Nl0sWzYwMiwzMTddXSwKW1s3MTUsMjk3XSxbNjcxLDI5MV0sWzY2MiwzMzVdLFs3MDEsMzQwXSxbNzE1LDI5N11dLApbWzQxMSw0NzldLFszODcsNTIwXSxbNDIyLDU0NF0sWzQ1MCw1MDNdLFs0MTEsNDc5XV0sCltbMTQ5LDUzNV0sWzk5LDU0OV0sWzExOCw1OThdLFsxNjIsNTgwXSxbMTQ5LDUzNV1dLApbWzczOSw0NDZdLFs3MDQsNDM2XSxbNjg3LDQ3Ml0sWzcyNiw0NzldLFs3MzksNDQ2XV0sCltbNTk1LDUzOV0sWzU1MCw1NThdLFs1NzIsNTk0XSxbNjE0LDU3M10sWzU5NSw1MzldXSwKW1s3MDYsNTkzXSxbNjc5LDYyMF0sWzcxMCw2NTRdLFs3MzksNjE4XSxbNzA2LDU5M11dLApbWzIwNCw2OTNdLFsxNzAsNzI1XSxbMTk3LDc1Ml0sWzIzMCw3MTldLFsyMDQsNjkzXV0sCltbMzc0LDY3N10sWzM1MSw3MTddLFszOTQsNzQxXSxbNDE1LDY5OV0sWzM3NCw2NzddXQpd"
+  }else if (typ == ".svg"){
+    dat = "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCndpZHRoPSI2NDAiIGhlaWdodD0iNjQwIgo+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0zMjAsMzIwIDM1NywyMDUgNDc3LDIwNSA0NDAsMzIwIDMyMCwzMjAgCiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNMjYwLDEzNSAyMjIsMjQ5IDMyMCwzMjAgMzU3LDIwNSAyNjAsMTM1IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTI2MCwxMzUgMjIyLDI0OSAxODUsMTM1IDIyMiwyMSAyNjAsMTM1IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTI2MCw1MDQgMzU3LDQzNCAzMjAsMzIwIDIyMiwzOTAgMjYwLDUwNCAKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0yNjAsNTA0IDM1Nyw0MzQgMzIwLDU0OCAyMjIsNjE4IDI2MCw1MDQgCiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNNDc3LDQzNCA0NDAsMzIwIDMyMCwzMjAgMzU3LDQzNCA0NzcsNDM0IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTQ3Nyw0MzQgNDQwLDMyMCA1MzcsMzkwIDU3NCw1MDQgNDc3LDQzNCAKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk00NzcsMjA1IDM1NywyMDUgMzIwLDMyMCA0NDAsMzIwIDQ3NywyMDUgCiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNNDc3LDIwNSAzNTcsMjA1IDQ1NCwxMzUgNTc0LDEzNSA0NzcsMjA1IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTEyNSwzMjAgMjIyLDM5MCAzMjAsMzIwIDIyMiwyNDkgMTI1LDMyMCAKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0xMjUsMzIwIDIyMiwzOTAgMTAyLDM5MCA1LDMyMCAxMjUsMzIwIAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTQ1NCwxMzUgNDE3LDIxIDMyMCw5MSAyMjIsMjEgMjYwLDEzNSAzNTcsMjA1IDMyMCw5MSAKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0xODUsMTM1IDY1LDEzNSAxMDIsMjQ5IDUsMzIwIDEyNSwzMjAgMjIyLDI0OSAxMDIsMjQ5IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTMyMCw1NDggNDE3LDYxOCA0NTQsNTA0IDU3NCw1MDQgNDc3LDQzNCAzNTcsNDM0IDQ1NCw1MDQgCiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNMTAyLDM5MCA2NSw1MDQgMTg1LDUwNCAyMjIsNjE4IDI2MCw1MDQgMjIyLDM5MCAxODUsNTA0IAoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTUzNywzOTAgNjM0LDMyMCA1MzcsMjQ5IDU3NCwxMzUgNDc3LDIwNSA0NDAsMzIwIDUzNywyNDkgCiIvPjwvc3ZnPg==";
+  }else if (typ == ".hlr.svg"){
+    dat = "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCndpZHRoPSI3NDQiIGhlaWdodD0iNTY2Igo+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk00ODMsMzYgNTU3LDcyIDQ4MywxMDggNDA5LDcyIDQ4MywzNiA0ODMsMzYgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTQ4MywzNiA1NTcsNzIgNDgzLDEwOCA0MDksNzIgNDgzLDM2IDQ4MywzNiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk0zMzYsOTIgNDA5LDU2IDQ4Myw5MiA0MDksMTI4IDMzNiw5MiAzMzYsOTIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTMzNiw5MiA0MDksNTYgNDgzLDkyIDQwOSwxMjggMzM2LDkyIDMzNiw5MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk0yNjIsMTEyIDMzNiw3NiA0MDksMTEyIDMzNiwxNDggMjYyLDExMiAyNjIsMTEyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0yNjIsMTEyIDMzNiw3NiA0MDksMTEyIDMzNiwxNDggMjYyLDExMiAyNjIsMTEyIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTE4OCwxMzIgMjYyLDk2IDMzNiwxMzIgMjYyLDE2OCAxODgsMTMyIDE4OCwxMzIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTE4OCwxMzIgMjYyLDk2IDMzNiwxMzIgMjYyLDE2OCAxODgsMTMyIDE4OCwxMzIgCiIvPjxwYXRoIHN0cm9rZT0ibm9uZSIgZmlsbD0id2hpdGUiIGQ9IgpNMTE0LDE1MiAxODgsMTE2IDI2MiwxNTIgMTg4LDE4OCAxMTQsMTUyIDExNCwxNTIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTExNCwxNTIgMTg4LDExNiAyNjIsMTUyIDE4OCwxODggMTE0LDE1MiAxMTQsMTUyIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTQwLDE3MiAxMTQsMTM2IDE4OCwxNzIgMTE0LDIwOCA0MCwxNzIgNDAsMTcyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk00MCwxNzIgMTE0LDEzNiAxODgsMTcyIDExNCwyMDggNDAsMTcyIDQwLDE3MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk01NTcsNzIgNDgzLDEwOCA0ODMsOTIgNDA5LDEyOCA0MDksMTEyIDMzNiwxNDggMzM2LDEzMiAyNjIsMTY4IDI2MiwxNTIgMTg4LDE4OCAxODgsMzQxIDQ4MywzNDEgNDgzLDEzMiA1NTcsOTYgNTU3LDcyIDU1Nyw3MiA1NTcsNzIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTU1Nyw3MiA0ODMsMTA4IDQ4Myw5MiA0MDksMTI4IDQwOSwxMTIgMzM2LDE0OCAzMzYsMTMyIDI2MiwxNjggMjYyLDE1MiAxODgsMTg4IDE4OCwzNDEgNDgzLDM0MSA0ODMsMTMyIDU1Nyw5NiA1NTcsNzIgNTU3LDcyIDU1Nyw3MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk00ODMsMTIyIDU1Nyw4NiA2MzEsMTIyIDU1NywxNTggNDgzLDEyMiA0ODMsMTIyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk00ODMsMTIyIDU1Nyw4NiA2MzEsMTIyIDU1NywxNTggNDgzLDEyMiA0ODMsMTIyIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTU1NywxNTggNjMxLDEyMiA2MzEsMTM1IDU1NywxNzIgNTU3LDE1OCA1NTcsMTU4IHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk01NTcsMTU4IDYzMSwxMjIgNjMxLDEzNSA1NTcsMTcyIDU1NywxNTggNTU3LDE1OCAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk02MzEsMjA4IDU1NywxNzIgNTU3LDE1OCA0ODMsMTIyIDQ4MywzNDEgNTU3LDM0MSA1NTcsMTkxIDYzMSwyMjcgNjMxLDIwOCA2MzEsMjA4IHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk02MzEsMjA4IDU1NywxNzIgNTU3LDE1OCA0ODMsMTIyIDQ4MywzNDEgNTU3LDM0MSA1NTcsMTkxIDYzMSwyMjcgNjMxLDIwOCA2MzEsMjA4IAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTExNCwxOTIgMTg4LDE1NiAyNjIsMTkyIDE4OCwyMjggMTE0LDE5MiAxMTQsMTkyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0xMTQsMTkyIDE4OCwxNTYgMjYyLDE5MiAxODgsMjI4IDExNCwxOTIgMTE0LDE5MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk0xODgsMjEyIDI2MiwxNzYgMzM2LDIxMiAyNjIsMjQ4IDE4OCwyMTIgMTg4LDIxMiB6CiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNMTg4LDIxMiAyNjIsMTc2IDMzNiwyMTIgMjYyLDI0OCAxODgsMjEyIDE4OCwyMTIgCiIvPjxwYXRoIHN0cm9rZT0ibm9uZSIgZmlsbD0id2hpdGUiIGQ9IgpNMjYyLDIzMiAzMzYsMTk2IDQwOSwyMzIgMzM2LDI2OCAyNjIsMjMyIDI2MiwyMzIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTI2MiwyMzIgMzM2LDE5NiA0MDksMjMyIDMzNiwyNjggMjYyLDIzMiAyNjIsMjMyIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTMzNiwyNTIgNDA5LDIxNiA0ODMsMjUyIDQwOSwyODggMzM2LDI1MiAzMzYsMjUyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk0zMzYsMjUyIDQwOSwyMTYgNDgzLDI1MiA0MDksMjg4IDMzNiwyNTIgMzM2LDI1MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk00MDksMjcyIDQ4MywyMzYgNTU3LDI3MiA0ODMsMzA4IDQwOSwyNzIgNDA5LDI3MiB6CiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNNDA5LDI3MiA0ODMsMjM2IDU1NywyNzIgNDgzLDMwOCA0MDksMjcyIDQwOSwyNzIgCiIvPjxwYXRoIHN0cm9rZT0ibm9uZSIgZmlsbD0id2hpdGUiIGQ9IgpNNDgzLDIyMiA1NTcsMTg2IDYzMSwyMjIgNTU3LDI1OCA0ODMsMjIyIDQ4MywyMjIgegoiLz48cGF0aCBzdHJva2U9ImJsYWNrIiBmaWxsPSJub25lIiBkPSIKTTQ4MywyMjIgNTU3LDE4NiA2MzEsMjIyIDU1NywyNTggNDgzLDIyMiA0ODMsMjIyIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTU1NywxNzIgNjMxLDEzNSA3MDUsMTcxIDYzMSwyMDggNTU3LDE3MiA1NTcsMTcyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk01NTcsMTcyIDYzMSwxMzUgNzA1LDE3MSA2MzEsMjA4IDU1NywxNzIgNTU3LDE3MiAKIi8+PHBhdGggc3Ryb2tlPSJub25lIiBmaWxsPSJ3aGl0ZSIgZD0iCk03MDUsMTcxIDYzMSwyMDggNjMxLDIyMiA1NTcsMjU4IDU1NywyNzIgNDgzLDMwOCA0ODMsNTMzIDcwNSw0MjUgNzA1LDE3MSA3MDUsMTcxIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk03MDUsMTcxIDYzMSwyMDggNjMxLDIyMiA1NTcsMjU4IDU1NywyNzIgNDgzLDMwOCA0ODMsNTMzIDcwNSw0MjUgNzA1LDE3MSA3MDUsMTcxIAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTQwLDMxNyA0MCwxNzIgMTE0LDIwOCAxMTQsMTkyIDE4OCwyMjggMTg4LDIxMiAyNjIsMjQ4IDI2MiwyMzIgMzM2LDI2OCAzMzYsMjUyIDQwOSwyODggNDA5LDI3MiA0ODMsMzA4IDQ4Myw1MzMgNDAsMzE3IDQwLDMxNyB6CiIvPjxwYXRoIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGQ9IgpNNDAsMzE3IDQwLDE3MiAxMTQsMjA4IDExNCwxOTIgMTg4LDIyOCAxODgsMjEyIDI2MiwyNDggMjYyLDIzMiAzMzYsMjY4IDMzNiwyNTIgNDA5LDI4OCA0MDksMjcyIDQ4MywzMDggNDgzLDUzMyA0MCwzMTcgNDAsMzE3IAoiLz48cGF0aCBzdHJva2U9Im5vbmUiIGZpbGw9IndoaXRlIiBkPSIKTTQ4MywyMjIgNTU3LDI1OCA1NTcsMjcyIDQ4MywyMzYgNDgzLDIyMiA0ODMsMjIyIHoKIi8+PHBhdGggc3Ryb2tlPSJibGFjayIgZmlsbD0ibm9uZSIgZD0iCk00ODMsMjIyIDU1NywyNTggNTU3LDI3MiA0ODMsMjM2IDQ4MywyMjIgNDgzLDIyMiAKIi8+PC9zdmc+Cg=="
+  }else if (typ == "text"){
+    dat = "VG8gc2VlIGEgd29ybGQgaW4gYSBncmFpbiBvZiBzYW5kCkFuZCBhIGhlYXZlbiBpbiBhIHdpbGQgZmxvd2VyLApIb2xkIGluZmluaXR5IGluIHRoZSBwYWxtIG9mIHlvdXIgaGFuZApBbmQgZXRlcm5pdHkgaW4gYW4gaG91ci4="
+  }
+  document.getElementById("inta").value = atob(dat);
+  // document.getElementById("inproc").onclick();
+}
+
+document.getElementById("inup").onclick = function(){
+  let inp = document.createElement("input");
+  inp.type = "file";
+  inp.addEventListener('change', function(e){
+    let reader = new FileReader();
+    reader.onload = async function(){
+      let txt = reader.result;
+      document.getElementById("inta").value = txt;
+    }
+    reader.readAsText(e.target.files[0]);    
+    document.body.removeChild(inp);
+  }, false);
+  document.body.appendChild(inp);
+  inp.style.display="none"
+  inp.click();
+}
+
+let VECEDIT = {
+  w:0,
+  h:0,
+  polys:[]
+}
+
+let SIMU = {
+  x:0,
+  y:0,
+  state:0,
+}
+
+globalThis.s2p_moveto_handler = function(x,y){
+  VECEDIT.polys.push([[x,y]])
+}
+globalThis.s2p_lineto_handler = function(x,y){
+  VECEDIT.polys.at(-1).push([x,y])
+}
+globalThis.s2p_setdim_handler = function(x,y){
+  VECEDIT.w = x;
+  VECEDIT.h = y;
+}
+
+
+function get_bbox(points){
+  let xmin = Infinity;
+  let ymin = Infinity;
+  let xmax = -Infinity;
+  let ymax = -Infinity
+  for (let i = 0;i < points.length; i++){
+    let [x,y] = points[i];
+    xmin = Math.min(xmin,x);
+    ymin = Math.min(ymin,y);
+    xmax = Math.max(xmax,x);
+    ymax = Math.max(ymax,y);
+  }
+  return {x:xmin,y:ymin,w:xmax-xmin,h:ymax-ymin};
+}
+
+function render(){
+  let polylines = VECEDIT.polys;
+  let bb = get_bbox(polylines.flat().concat(
+    [[-WORKW/2,0],[WORKW/2+400,WORKH]]
+  ));
+  bb.x -= 10;
+  bb.w += 20;
+  bb.y -= 10;
+  bb.h += 20;
+  console.log(bb);
+
+  let o = `<svg id="svg-preview" xmlns="http://www.w3.org/2000/svg" width="${bb.w/2}" height="${bb.h/2}" viewBox="${bb.x} ${bb.y} ${bb.w} ${bb.h}">`
+  o += `
+  <rect x="-${WORKW/2}" y="0" width="${WORKW}" height="${WORKH}" fill="whitesmoke" stroke="black" stroke-dasharray="10 10"/>
+  <path stroke="red" stroke-width="2" fill="none" d="M -${WORKW/2} 0 L ${WORKW/2} 0 M 0 0 L 0 ${WORKH}"/>
+  <rect x="${WORKW/2+10}" y="30" width="20" height="20" fill="whitesmoke" stroke="black" stroke-dasharray="2 2"/>
+  <path stroke="red" stroke-width="2" fill="none" d="M ${WORKW/2+10} ${10} L ${WORKW/2+30} ${10} M ${WORKW/2+20} ${0} L ${WORKW/2+20} ${20}"/>
+  <path stroke="dodgerblue" stroke-width="3" fill="none" d="M ${WORKW/2+10} ${110} L ${WORKW/2+30} ${90} "/>
+  <text x="${WORKW/2+40}" y="${20}" font-size="22">plotter origin</text>
+  <text x="${WORKW/2+40}" y="${50}" font-size="22">work area ${WORKW}x${WORKH}</text>
+  <text x="${WORKW/2+40}" y="${80}" font-size="22">(postcard 6x4'')</text>
+  <text x="${WORKW/2+40}" y="${110}" font-size="22">simulation</text>`
+  for (let i = 0; i < polylines.length; i++){
+    let prv = polylines[i-1]??[[0,0]];
+    if (prv.length && polylines[i].length){
+      o += `<path stroke="black" stroke-width="1" stroke-dasharray="5 5" fill="none" 
+      d="M${prv.at(-1)[0]}
+      ${prv.at(-1)[1]}
+      ${polylines[i][0][0]}
+      ${polylines[i][0][1]}
+      "/>`;
+    }
+    o += '<path stroke="black" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M ';
+    for (let j = 0; j < polylines[i].length; j++){
+      let [x,y] = polylines[i][j];
+      o += `${x} ${y} `;
+    }
+    o += `\n"/>`
+  }
+  o += `</svg>`
+  return o;
+}
+
+
+function toolpath(){
+  let lines = VECEDIT.polys;
+  let out = [['Z',150]];
+  let lx = 0;
+  let ly = 0;
+  for (let i = 0; i < lines.length; i++){
+    for (let j = 0; j < lines[i].length; j++){
+      let x = ~~lines[i][j][0];
+      let y = ~~lines[i][j][1];
+      let dx = x-lx;
+      let dy = y-ly;
+      if (dx != 0 || dy != 0){
+        if (out.at(-1) && out.at(-1)[0] == 'l' && Math.sign(out.at(-1)[1])==Math.sign(dx) && out.at(-1)[1]/out.at(-1)[3]== dx/dy){
+          out.at(-1)[1]+=dx;
+          out.at(-1)[3]+=dy;
+        }else{
+          out.push(['l',dx,',',dy]);
+        }
+      }
+      if (j == 0){
+        out.push(['Z',90]);
+      }
+      lx = x;
+      ly = y;
+    }
+    out.push(['Z',150]);
+  }
+  out.push(['Z',150]);
+  out.push(['l',-lx,',',-ly]);
+  return out.map(x=>x.join('')).join("\n")
+}
+
+function letter(c,x0,y0){
+  let offs = HF_OFFS[c.charCodeAt(0)];
+  let n = HF_DATA[offs]*2;
+  let w = HF_DATA[offs+1];
+  let isup = 1;
+  let out = [];
+
+  for (let i = 0; i < n; i+=2){
+    let x = HF_DATA[offs+2+i];
+    let y = HF_DATA[offs+2+i+1];
+    if (x == ' '.charCodeAt(0) && y == 'R'.charCodeAt(0)){
+      out.push([])
+    }else{
+      if (!out.length) out.push([]);
+      x-='R'.charCodeAt(0);
+      y-='R'.charCodeAt(0);
+      out.at(-1).push([x0+x,y0+y]);
+    }
+  }
+  return [out,w];
+}
+
+function paragraphs(cs){
+  let x0 = 0;
+  let y0 = 0;
+  let out = [];
+  cs = cs.replace(/\r/g,"\n");
+  for (let i = 0; i < cs.length; i++){
+    let c = cs[i];
+    if (c == '\n'){
+      y0 += 32;
+      x0 = 0;
+    }else if (c == ' '){
+      x0 += 8;
+    }else{
+      let [o,w] = letter(c,x0,y0);
+      out = out.concat(o);
+      x0 += w;
+    }
+  }
+  return out;
+}
+
+function poly_opt_tsp(t,e){const r=t.length;if(r<=1)return t;const n=t.map(t=>t[0]),o=t.map(t=>t[t.length-1]);function l(t,e){const r=t[0]-e[0],n=t[1]-e[1];return Math.sqrt(r*r+n*n)}const f=new Array(r),c=new Array(r).fill(!1);function s(t){return c[t]?o[f[t]]:n[f[t]]}function i(t){return c[t]?n[f[t]]:o[f[t]]}const u=new Array(r).fill(!1);let a=e||[0,0];for(let t=0;t<r;t++){let e=1/0,s=-1,i=!1;for(let t=0;t<r;t++){if(u[t])continue;const r=l(a,n[t]),f=l(a,o[t]);r<e&&(e=r,s=t,i=!1),f<e&&(e=f,s=t,i=!0)}f[t]=s,c[t]=i,u[s]=!0,a=i?n[s]:o[s]}let p=!0;for(;p;){p=!1;for(let t=0;t<r-1;t++)for(let n=t+1;n<r;n++){let o=0,u=0;0===t&&e?o+=l(e,s(t)):t>0&&(o+=l(i(t-1),s(t))),n<r-1&&(o+=l(i(n),s(n+1)));let a=i(n),y=s(t);if(0===t&&e?u+=l(e,a):t>0&&(u+=l(i(t-1),a)),n<r-1&&(u+=l(y,s(n+1))),u<o-1e-10){let e=t,r=n;for(;e<r;){let t=f[e];f[e]=f[r],f[r]=t;let n=c[e];c[e]=c[r],c[r]=n,e++,r--}for(let e=t;e<=n;e++)c[e]=!c[e];p=!0}}}for(p=!0;p;){p=!1;for(let t=0;t<r;t++){let n=0,o=0;const f=s(t),u=i(t),a=u,y=f;0===t&&e?(n+=l(e,f),o+=l(e,a)):t>0&&(n+=l(i(t-1),f),o+=l(i(t-1),a)),t<r-1&&(n+=l(u,s(t+1)),o+=l(y,s(t+1))),o<n-1e-10&&(c[t]=!c[t],p=!0)}}const y=new Array(r);for(let e=0;e<r;e++){const r=t[f[e]];c[e]?y[e]=r.slice().reverse():y[e]=r}return y}
+
+
+function approxPolyDP(polyline, epsilon){
+  function pointDistanceToSegment(p, p0, p1) {
+    let x = p[0];   let y = p[1];
+    let x1 = p0[0]; let y1 = p0[1];
+    let x2 = p1[0]; let y2 = p1[1];
+    let A = x - x1; let B = y - y1; let C = x2 - x1; let D = y2 - y1;
+    let dot = A*C+B*D;
+    let len_sq = C*C+D*D;
+    let param = -1;
+    if (len_sq != 0) {
+      param = dot / len_sq;
+    }
+    let xx; let yy;
+    if (param < 0) {
+      xx = x1; yy = y1;
+    }else if (param > 1) {
+      xx = x2; yy = y2;
+    }else {
+      xx = x1 + param*C;
+      yy = y1 + param*D;
+    }
+    let dx = x - xx;
+    let dy = y - yy;
+    return Math.sqrt(dx*dx+dy*dy);
+  }
+  if (polyline.length <= 2){
+    return polyline;
+  }
+  let dmax   = 0;
+  let argmax = -1;
+  for (let i = 1; i < polyline.length-1; i++){
+    let d = pointDistanceToSegment(polyline[i], 
+                                    polyline[0], 
+                                    polyline[polyline.length-1]);
+    if (d > dmax){
+      dmax = d;
+      argmax = i;
+    }  
+  }
+  let ret = [];
+  if (dmax > epsilon){
+    let L = approxPolyDP(polyline.slice(0,argmax+1),epsilon);
+    let R = approxPolyDP(polyline.slice(argmax,polyline.length),epsilon);
+    ret = ret.concat(L.slice(0,L.length-1)).concat(R);
+  }else{
+    ret.push(polyline[0].slice());
+    ret.push(polyline[polyline.length-1].slice());
+  }
+  return ret;
+}
+
+
+document.getElementById("inproc").onclick = async function(){
+  let typ = document.getElementById("intyp").value;
+  let txt = document.getElementById("inta").value;
+  VECEDIT.polys.splice(0,Infinity);
+  VECEDIT.w = 0;
+  VECEDIT.h = 0;
+  if (typ == ".hlr.svg"){
+    let {callMain,FS} = await HLR();
+    FS.writeFile("input.hlr.svg", txt);
+    callMain(["input.hlr.svg", "-o", "output.svg"]);
+    txt = FS.readFile("output.svg", { encoding: "utf8" });
+    // console.log(txt);
+  }
+  if (typ.endsWith(".svg")){
+    let {_s2p_parse_from_str,_malloc,writeStringToMemory} = await SVG2PL();
+    let buf = _malloc(txt.length+1);
+    writeStringToMemory(txt,buf);
+    _s2p_parse_from_str(buf,-1);
+  }else if (typ == "polylines"){
+    if (!txt.length) txt = "[]"
+    VECEDIT.polys = JSON.parse(txt);
+  }else if (typ == "text"){
+    VECEDIT.polys = paragraphs(txt).map(p=>p.map(xy=>[xy[0]*3,(xy[1]+24)*3]));
+  }
+
+  if (document.getElementById("inrot").checked){
+    for (let i = 0; i < VECEDIT.polys.length; i++){
+      for (let j = 0; j < VECEDIT.polys[i].length; j++){
+        let [x,y] = VECEDIT.polys[i][j];
+        VECEDIT.polys[i][j] = [VECEDIT.h-y,x];
+      }
+    }
+    [VECEDIT.w,VECEDIT.h] = [VECEDIT.h,VECEDIT.w];
+  }
+  if (document.getElementById("infit").checked){
+    let dx = 0;
+    let dy = 0;
+    if (VECEDIT.w == 0 || VECEDIT.h == 0){
+      let bb = get_bbox(VECEDIT.polys.flat());
+      VECEDIT.w = bb.w;
+      VECEDIT.h = bb.h;
+      dx = bb.x;
+      dy = bb.y;
+    }
+    let sx = WORKW/VECEDIT.w;
+    let sy = WORKH/VECEDIT.h;
+    let s = Math.min(sx,sy);
+    let px = (WORKW-VECEDIT.w*s)/2;
+    let py = (WORKH-VECEDIT.h*s)/2;
+    for (let i = 0; i < VECEDIT.polys.length; i++){
+      for (let j = 0; j < VECEDIT.polys[i].length; j++){
+        let [x,y] = VECEDIT.polys[i][j];
+        VECEDIT.polys[i][j] = [(x-dx)*s+px,(y-dy)*s+py];
+      }
+    }
+  }
+
+  for (let i = 0; i < VECEDIT.polys.length; i++){
+    for (let j = 0; j < VECEDIT.polys[i].length; j++){
+      let [x,y] = VECEDIT.polys[i][j];
+      VECEDIT.polys[i][j] = [x-WORKW/2,y];
+    }
+  }
+
+  if (document.getElementById("inapx").checked){
+    VECEDIT.polys = VECEDIT.polys.map(x=>approxPolyDP(x,2));
+  }
+
+  if (document.getElementById("intsp").checked){
+    VECEDIT.polys = poly_opt_tsp(VECEDIT.polys,[0,0]);
+  }
+
+  div_view.innerHTML = render();
+
+  document.getElementById("tb_ta").value = toolpath();
+  document.getElementById("tb_ta").onchange();
+  SIMU.x = 0;
+  SIMU.y = 0;
+  SIMU.state = 0;
+}
+div_view.innerHTML = render();
+
+
+
+function millis_to_str(t){
+  let sec = Math.round(t / 1000);
+  let min = ~~(sec / 60);
+  sec -= min*60;
+  let hr = ~~(min / 60);
+  min -= hr*60;
+  return `${hr}hr ${min}min ${sec}sec`;
+}
+
+
+function connector(params, connect, disconnect, send){
+  function estimate_time(cmds){
+    cmds = cmds.split("\n").map(x=>x.trim()).filter(x=>x.length);
+    let t = 0;
+    for (let i = 0; i < cmds.length; i++){
+      let s = cmds[i];
+      if (s.startsWith('l')){
+        let xy = JSON.parse('['+s.slice(1)+']');
+        t += (Math.abs(xy[0])+Math.abs(xy[1]))*17;
+      }else if (s.startsWith('Z')){
+        let z = Number(s.slice(1));
+        t += 500;
+      }
+      t += params.baud ? ((s.length+4) * 10 / Number(params.baud) + 1) : 10;
+    }
+    return t;
+  }
+  return new function(){
+    let that = this;
+    
+    let div = document.createElement("div");
+    div.innerHTML = `
+    <div style="position:absolute;width:100%;height:100%;overflow:scroll">
+    <div style="position:absolute;left:2px;width:calc(100% - 150px);height:100%">
+    ${Object.keys(params).map(x=>`<div style="height:20px;text-align:right;font-size:11px">${x}:<input id="tr_${x}" style="font-size:11px;width:calc(100% - 150px)" value="${params[x]}"></input></div>`).join('')}
+    
+    <textarea id="tb_ta" style="width:100%;height:calc(100% - ${Object.keys(params).length*20+140}px);min-height:50px"></textarea>
+    <div id="tb_stat"></div>
+    <div id="tb_time"></div>
+    
+    </div>
+    <div style="position:absolute;right:10px;top:0px;">
+      <button id="tb_c" style="width:130px">connect</button><br>
+      <button id="tb_dc" style="width:130px">disconnect</button><br>
+      <button id="tb_xm" style="width:65px">X-10</button><button id="tb_xp" style="width:65px">X+10</button><br>
+      <button id="tb_ym" style="width:65px">Y-10</button><button id="tb_yp" style="width:65px">Y+10</button><br>
+      <button id="tb_xmm" style="width:65px">X-100</button><button id="tb_xpp" style="width:65px">X+100</button><br>
+      <button id="tb_ymm" style="width:65px">Y-100</button><button id="tb_ypp" style="width:65px">Y+100</button><br>
+      <button id="tb_zmm" style="width:65px">Z up</button><button id="tb_zpp" style="width:65px">Z down</button><br>
+      <button id="tb_s" style="width:130px">send</button><br>
+      <button id="tb_x" style="width:130px">stop</button><br>
+      <input id="tb_p" type="checkbox"></input>pause<br>
+    </div>
+    </div>
+    `;
+    for (let k in params){
+      div.querySelector(`#tr_${k}`).onchange = function(){
+        params[k] = div.querySelector(`#tr_${k}`).value;
+      }
+    }
+    let tot_t = 0;
+    let cur_t = 0;
+    let wal_t = 0;
+    async function wsend(i,n,s){
+      if (s.startsWith('l')){
+        let xy = JSON.parse('['+s.slice(1)+']');
+        let ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        ln.setAttribute("x1", SIMU.x);
+        ln.setAttribute("y1", SIMU.y);
+        ln.setAttribute("x2", SIMU.x+xy[0]);
+        ln.setAttribute("y2", SIMU.y+xy[1]);
+        ln.setAttribute("stroke","dodgerblue");
+        ln.setAttribute("stroke-width", (SIMU.state == 0 || SIMU.state == 150)?2:4);
+        document.getElementById("svg-preview").appendChild(ln);
+        SIMU.x += xy[0];
+        SIMU.y += xy[1];
+      }else if (s.startsWith('Z')){
+        SIMU.state = Number(s.slice(1));
+      }
+      div.querySelector("#tb_stat").innerHTML = `[${i}/${n}] sending '${s}' ...`;
+      await send(s);
+      div.querySelector("#tb_stat").innerHTML = `[${i}/${n}] sent.`;
+    }
+    
+    div.querySelector("#tb_c").onclick = async function(){
+      await connect(params);
+    };
+    div.querySelector("#tb_dc").onclick = async function(){
+      await disconnect(params);
+    };
+    div.querySelector("#tb_ta").onchange = function(){
+      tot_t = estimate_time(div.querySelector("#tb_ta").value);
+      console.log(tot_t,'millis')
+      div.querySelector("#tb_time").innerHTML = "estimated total time: "+millis_to_str(tot_t);
+
+    }
+    let abort = 0;
+    div.querySelector("#tb_s").onclick = async function(){
+      abort = 0;
+      cur_t = 0;
+      wal_t = new Date().getTime();
+      let lines = div.querySelector("#tb_ta").value.split('\n').map(x=>x.trim()).filter(x=>x.length);
+      for (let i = 0; i < lines.length; i++){
+        if (abort) break;
+        while ( div.querySelector("#tb_p").checked){
+          await new Promise(resolve => setTimeout(resolve, 100)); 
+        }
+        await wsend(i+1,lines.length,lines[i]);
+
+        cur_t += estimate_time(lines[i]);
+        let rel_t = new Date().getTime()-wal_t;
+        let rem_t = tot_t-cur_t;
+        let cor_t = rem_t * rel_t / cur_t;
+        div.querySelector("#tb_time").innerHTML = `<table style="font-size:13px">
+          <tr><td>estimated total time:</td><td>${millis_to_str(tot_t)}</td></tr>
+          <tr><td>estimated elapsed time:</td><td>${millis_to_str(cur_t)}</td></tr>
+          <tr><td>elapsed wall time:</td><td>${millis_to_str(rel_t)}</td></tr>
+          <tr><td>estimated remaining time:</td><td>${millis_to_str(rem_t)}</td></tr>
+          <tr><td>wall-corrected estimated remaining time:</td><td>${millis_to_str(cor_t)}</td></tr>
+          </table>
+        `;
+
+      }
+      div.querySelector("#tb_stat").innerHTML = `done.`;
+    };
+    div.querySelector("#tb_x").onclick = function(){
+      abort = 1;
+    };
+    
+    div.querySelector("#tb_xm" ).onclick = function(){wsend(1,1,"l-10,0")};
+    div.querySelector("#tb_xp" ).onclick = function(){wsend(1,1,"l10,0")};
+    div.querySelector("#tb_ym" ).onclick = function(){wsend(1,1,"l0,-10")};
+    div.querySelector("#tb_yp" ).onclick = function(){wsend(1,1,"l0,10")};
+    div.querySelector("#tb_xmm").onclick = function(){wsend(1,1,"l-100,0")};
+    div.querySelector("#tb_xpp").onclick = function(){wsend(1,1,"l100,0")};
+    div.querySelector("#tb_ymm").onclick = function(){wsend(1,1,"l0,-100")};
+    div.querySelector("#tb_ypp").onclick = function(){wsend(1,1,"l0,100")};
+    div.querySelector("#tb_zmm").onclick = function(){wsend(1,1,"Z150")};
+    div.querySelector("#tb_zpp").onclick = function(){wsend(1,1,"Z90")};
+    
+    that.div = div;
+  }
+}
+
+
+
+
+let device, characteristic;
+let BLETRAN = connector(
+  {namePrefix:"BLEPLOTTER",serviceUUID:'5817e2d6-642e-4523-8098-259279a002f2',characteristicUUID:'5ed7832a-308b-427b-b99c-77a56e362349'},
+  async function (params){
+    let {namePrefix,serviceUUID,characteristicUUID} = params;
+    if (!navigator.bluetooth){
+      console.log("your browser/protocol does not support WebBluetooth; try chrome/https.");
+    }
+    await navigator.bluetooth.requestDevice({
+      filters:[{namePrefix}],
+      optionalServices:[serviceUUID]
+    }).then(_device=>{
+      device = _device;
+      console.log(device.name);
+      return device.gatt.connect();
+    }).then(server=>server.getPrimaryService(serviceUUID))
+      .then(service=>service.getCharacteristic(characteristicUUID))
+      .then(_characteristic=>{
+      characteristic = _characteristic;
+      // characteristic.startNotifications();
+    }).catch(error=>{console.error(error);})
+  },
+  function (){
+    if (device) device.gatt.disconnect();
+    device = null;
+    characteristic = null;
+  },
+  async function (s){
+    if (device && characteristic){
+      await characteristic.writeValue(new TextEncoder().encode(s));
+      // console.log('written, reading now...')
+      
+      function mkp(){
+        return new Promise((resolve, reject) => {
+          characteristic.readValue().then(value=>{
+            let ret = new TextDecoder().decode(value);
+            console.log(ret);
+            if (ret == 'OK'){
+              resolve(ret)
+            }else{
+              reject(ret);
+            }
+          });
+        });
+      }
+      async function loop(){
+        try{
+          await mkp();
+        }catch(e){
+          console.log(e);
+          await loop();
+        }
+      }
+      await loop();
+    }else{
+      console.log("not connected!");
+    }
+  }
+
+);
+
+let mon = {};
+
+let SERTRAN = connector(
+  {baud:115200},
+  async function(params){
+    if (navigator.serial){
+      window.serial = navigator.serial;
+    }
+    if (!window.serial){
+      console.log("your browser/protocol does not support WebSerial; try chrome/https.");
+    }
+    let port = await window.serial.requestPort({});
+    try{
+      await port.open({baudRate: Number(params.baud)});
+      console.log('port opened: '+JSON.stringify(port.getInfo()));
+    }catch(e){
+      console.log('port failed to open: '+e.toString());
+      return;
+    }
+    mon.port = port;
+    mon.reader = port.readable.getReader();
+    mon.writer = port.writable.getWriter();
+    mon.buf = [];
+    mon.close = async function(x){
+      mon.reader.releaseLock();
+      mon.writer.releaseLock();
+      mon.port.close();
+      mon.port = null;
+      console.log('port closed.');
+    }
+    if (mon.port){
+      mon.port.ondisconnect = function(){
+        console.log('connection lost.')
+        mon.port = null;
+      }
+    }
+  },
+  async function(params){
+    mon.close();
+  },
+  async function(s){
+    if (!mon.writer) {console.log("not connected!"); return}
+    const encoder = new TextEncoder();
+    const view = encoder.encode(s+'\n');
+    await mon.writer.write(view);
+    
+    let o = "";
+    async function loop(){
+      let {value,done} = (await mon.reader.read());
+      for (let i = 0; i < value.length; i++){
+        o += String.fromCharCode(value[i]);
+      }
+      
+      if (!o.includes('OK\n')){
+        await loop();
+      }
+    }
+    await loop();
+    console.log(o);
+  }                       
+);
+
+document.getElementById("cntyp").onchange = function(){
+  let old = document.getElementById("tb_ta");
+  if (old){
+    old = old.value;
+  }else{
+    old = "";
+  }
+  document.getElementById("div-transmit-content").innerHTML = "";
+  if (document.getElementById("cntyp").value == 'bluetooth'){
+    document.getElementById("div-transmit-content").appendChild(BLETRAN.div);
+
+  }else{
+    document.getElementById("div-transmit-content").appendChild(SERTRAN.div);
+  }
+  console.log(old);
+  document.getElementById("tb_ta").value = old;
+}
+
+document.getElementById("cntyp").onchange();
+
+
+
+
+
+</script>
